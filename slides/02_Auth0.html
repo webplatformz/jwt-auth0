@@ -104,6 +104,32 @@ fetch('/secretApi', {
                 </pre>
             </section>
         </section>
+        <section>
+            <section>
+                <h2>What about the Server Side?</h2>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+const express = require('express');
+const expressJWT = require('express-jwt');
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h2>Express Handler</h2>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+const authorization = expressJWT({
+  secret: 'Secret',
+  audience: 'ClientId',
+});
+
+app.get('/secretApi', authorization, (req, res) => {
+  res.sendStatus(200);
+});
+                    </code>
+                </pre>
+            </section>
+        </section>
     </div>
 </div>
 <script src="../lib/js/head.min.js"></script>
