@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Angular Workshop | 02 Grundlagen</title>
+    <title>Auth0</title>
 
     <link rel="stylesheet" href="../css/reveal.css">
     <link rel="stylesheet" href="../css/theme/zuehlke.css">
@@ -25,21 +25,84 @@
 <div class="reveal">
     <div class="slides">
         <section class="deck-slide">
-            <h1>Auth0</h1>
+            <h1>Auth0 | Identity Platform</h1>
         </section>
         <section>
-            <h2>tbd</h2>
-            <ul>
-                <li>tbd</li>
-            </ul>
+            <section>
+                <h2>Flow</h2>
+                <img src="../img/auth0-flow.png" />
+            </section>
+            <section>
+                <h2>Identitiy Providers</h2>
+                <ul>
+                    <li>Social (Twitter, Facebook, Google et al.)</li>
+                    <li>Username/Password (local/cloud)</li>
+                    <li>Enterprise (LDAP and others)</li>
+                    <li>Passwordless (e.g. Email or SMS)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Rules</h2>
+                <p>
+                    Set contents of your JWT on the fly.<br>
+                    E.g. Roles and Permissions
+                </p>
+            </section>
+            <section>
+                <h2>API</h2>
+                <p>
+                    Call Auth0 API
+                </p>
+            </section>
         </section>
         <section>
-            <h2>Code example</h2>
-            <pre>
-                <code class="hljs javascript" data-trim contenteditable data-noescape>
-                    let blubb = 'code example';
-                </code>
-            </pre>
+            <a href="https://github.com/r3dDoX/jwtAuth0Example" target="_blank">
+                Example Github Repo
+            </a>
+        </section>
+        <section>
+            <section>
+                <h2>Using Auth0</h2>
+                <ul>
+                    <li>Call the API from your own page</li>
+                    <li>Use Auth0-Lock which provides a connected screen</li>
+                </ul>
+            </section>
+            <section>
+                <h2>authService.js</h2>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+                        import Auth0Lock from 'auth0-lock';
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+this.lock = new Auth0Lock('ClientId', 'Domain', {
+  auth: {
+    redirectUrl: 'http://localhost:3000',
+    responseType: 'token',
+    params: {
+      scope: 'openid email app_metadata',
+    },
+  },
+});
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h2>So send it to the Server</h2>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+fetch('/secretApi', {
+  headers: {
+    'Authorization': 'bearer ' + this.authService.getToken()
+  }
+})
+                    </code>
+                </pre>
+            </section>
         </section>
     </div>
 </div>
