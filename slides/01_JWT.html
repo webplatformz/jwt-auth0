@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Angular Workshop | 01 Intro</title>
+    <title>JWT - Json Web Tokens</title>
 
     <link rel="stylesheet" href="../css/reveal.css">
     <link rel="stylesheet" href="../css/theme/zuehlke.css">
@@ -25,12 +25,164 @@
 <div class="reveal">
     <div class="slides">
         <section class="deck-slide">
-            <h1>JWT</h1>
+            <h1>JWT - Jason Web Tokens</h1>
         </section>
         <section>
             <h2>What is JWT?</h2>
+            <p>
+                <i>JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely
+                    between two parties.</i><br><br>
+                jwt.io
+            </p>
+        </section>
+        <section>
+            <h2>What does this mean?</h2>
             <ul>
-                <li>tbd</li>
+                <li>Compact</li>
+                <li>Self-Contained</li>
+                <li>Information-Container</li>
+                <li>Communication between two parties</li>
+            </ul>
+            <p>&rightarrow; Nothing more than a JSON-Object, which can be trusted to not have been modified since it was
+                created.</p>
+        </section>
+        <section>
+            <h2>Why would we need that?</h2>
+            <ul>
+                <li>Authentication</li>
+                <li>Information exchange</li>
+                <li>...</li>
+            </ul>
+        </section>
+        <section>
+            <section>
+                <h2>Structure of a JWT</h2>
+                <p>Tokens consist of three parts separated by <span class="code">.</span> (dots):</p>
+                <ul>
+                    <li>Header</li>
+                    <li>Payload</li>
+                    <li>Signature</li>
+                </ul>
+                <p>&rightarrow; xxx<span class="code">.</span>yyy<span class="code">.</span>zzz</p>
+            </section>
+            <section>
+                <h2>Header</h2>
+                <p>Normally consists of two parts:</p>
+                <ul>
+                    <li>Algorithm (<span class="code">alg</span>)</li>
+                    <li>Token Type (<span class="code">typ</span>) &rightarrow; "JWT"</li>
+                </ul>
+                <pre>
+                    <code class="hljs json" data-trim contenteditable data-noescape>
+                        {
+                            "alg": "HS256",
+                            "typ": "JWT"
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h2>Header (2)</h2>
+                <ul>
+                    <li>Base64Url encoded</li>
+                    <li>Builds first part of the token</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Payload</h2>
+                <ul>
+                    <li>Contains <span class="warn">claims</span></li>
+                    <ul>
+                        <li>Statements about an entity (e.g. user)</li>
+                        <li>Registered</li>
+                        <li>Public</li>
+                        <li>Private</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <h2>Payload (2)</h2>
+                <p>A payload could look like this:</p>
+                <pre>
+                    <code class="hljs json" data-trim contenteditable data-noescape>
+                        {
+                            "sub": "1234567890",
+                            "name": "John Doe",
+                            "admin": true
+                        }
+                    </code>
+                </pre>
+                <p>&rightarrow; Builds second part of the token</p>
+            </section>
+            <section>
+                <h2>Signature</h2>
+                <ul>
+                    <li>Third part of the token</li>
+                    <li>Created by signing <span class="code">xxx.yyy</span></li>
+                    <li>Using a algorithm and a secret</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Complete token</h2>
+                <img src="../img/encoded-jwt3.png">
+                <p>&rightarrow; <a href="https://jwt.io/#debugger" target="_blank">Debugger</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>How does it work?</h2>
+                <p>For the authentication use case:</p>
+                <ul>
+                    <li>Server issues JWT which is stored at client</li>
+                    <li>Client sends token in header for every request</li>
+                </ul>
+                <pre>
+                    <code class="hljs" data-trim contenteditable data-noescape>
+                        Authorization: Bearer &lt;token>
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h2>Flow</h2>
+                <img src="../img/jwt-diagram.png">
+            </section>
+            <section>
+                <h2>Advantages</h2>
+                <ul>
+                    <li>No session</li>
+                    <li>Stateless</li>
+                    <li>No database queries</li>
+                    <li>Multiple end points possible</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>JWT compared to SWT &amp; SAML</h2>
+                <ul>
+                    <li>Much less verbose compared to SAML (XML)</li>
+                    <li>Possibility to use Private/Public Key pair</li>
+                    <li>Easier to parse (JSON vs. XML)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Implementations</h2>
+                <ul>
+                    <li>Libraries for all major programming languages</li>
+                    <li>Even implemented in frameworks like Spring Security</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h2>Links &amp; Sources</h2>
+            <ul>
+                <li><a href="https://jwt.io" target="_blank">jwt.io</a></li>
+                <li>
+                    <a href="https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec" target="_blank">
+                        5 easy steps to understanding JWT</a>
+                </li>
+                <li><a href="https://en.wikipedia.org/wiki/JSON_Web_Token" target="_blank">Wikipedia</a></li>
+                <li><a href="http://www.baeldung.com/spring-security-oauth-jwt" target="_blank">JWT & Spring Boot</a></li>
             </ul>
         </section>
     </div>
@@ -46,13 +198,13 @@
 
         // More info https://github.com/hakimel/reveal.js#dependencies
         dependencies: [
-            { src: '../plugin/markdown/marked.js' },
-            { src: '../plugin/markdown/markdown.js' },
-            { src: '../plugin/notes/notes.js', async: true },
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
             {
                 src: '../plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
+                    hljs.initHighlightingOnLoad();
+                }
             }
         ]
     });
