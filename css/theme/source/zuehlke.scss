@@ -92,7 +92,6 @@ img {
   }
 
   .slide-background {
-    &.stack, &.deck-slide {
       &::after {
         content: ' ';
         display: block;
@@ -104,7 +103,6 @@ img {
         background: url('../../img/zuehlke_logo.jpg');
         background-size: contain;
       }
-    }
   }
 
   .slides {
