@@ -130,6 +130,33 @@ app.get('/secretApi', authorization, (req, res) => {
                 </pre>
             </section>
         </section>
+        <section>
+            <section>
+                <h2>Rules</h2>
+                <p>
+                    Append data to the tokens on Auth0 side
+                </p>
+            </section>
+            <section>
+                <h2>Add Roles to a user</h2>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+function (user, context, callback) {
+  var roles = [];
+
+  if (user.email_verified && user.email.indexOf('@zuehlke.com') > -1) {
+    roles.push('admin');
+  } else {
+    roles.push('user');
+  }
+
+  context.idToken['https://jwtAuth0Example/roles'] = roles;
+  callback(null, user, context);
+}
+                    </code>
+                </pre>
+            </section>
+        </section>
     </div>
 </div>
 <script src="../lib/js/head.min.js"></script>
